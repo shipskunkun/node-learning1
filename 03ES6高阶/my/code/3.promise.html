@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="box"></div>
+</body>
+<script>
+/*
+1. loadImage 不使用 promise 怎么写
+2. 使用promise改写 loadImage 函数
+
+*/
+
+function loadImage1(cb) {
+    let image =  new Image();
+    image.src = 'https://goss.veer.com/creative/vcg/veer/800water/veer-150325295.jpg';
+    image.onload = function() {
+        cb && cb();
+        console.log('加载成功')
+    }
+    image.onerror = function() {
+        console.log('加载失败')
+    }
+}
+
+loadImage1(()=>{
+    console.log('成功回调')
+});
+
+function loadImage () {
+    return new Promise((resolve, reject)=> {
+        let image = new Image();
+        image.src = 'https://goss.veer.com/creative/vcg/veer/800water/veer-150325295.jp';
+        image.onload = function() {
+            resolve('加载成功')
+        }
+        image.onerror = function() {
+            reject('加载失败')
+        }
+    })
+}
+
+let p = loadImage();
+p.then(function(res){
+    console.log(res, '成功回调2')
+}).catch(()=>{
+    console.log('失败回调2')
+}) 
+
+
+
+</script>
+
+</html>

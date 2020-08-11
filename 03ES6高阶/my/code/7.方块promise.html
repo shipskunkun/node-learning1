@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+</body>
+<script>
+
+/*
+写一个动画效果，先向右，然后向下，然后向左，最后向上，怎么做
+
+getComputedStyle 可以获得元素 left、top
+可以通过 ele.style 修改位置
+
+那么如何确定方向？最好是left、top 参数， 和 getComputedStyle保持一致
+如何执行移动位置？输入某个方向的最后定位值
+
+如果不写回调怎么办
+如果不是写在回调中的运动，是如何进行的？
+
+    直接移动到最后位置
+*/
+
+function mymove(ele, arg, target) {
+    return new Promise((resolve, reject)=>{
+        let start = parseInt(window.getComputedStyle(ele)[arg]);
+        let direction  = (target - start) / Math.abs(target - start);
+        function fn () {
+            let pos = parseInt(window.getComputedStyle(ele)[arg]);
+            if(pos == target) {
+                resolve();
+            }
+            else {
+                ele.style[arg] = pos + direction * 5 + 'px';
+                window.requestAnimationFrame(fn);
+            }
+        }
+        fn()
+    })
+}
+
+let ele = document.querySelector(".box");
+/* 错误原因，每次需要返回一个新的promise
+
+mymove(ele, 'left', 200)
+.then(()=>{
+    mymove(ele, 'top', 200)
+})
+.then(()=>{
+    mymove(ele, 'left', 0)
+})
+// .then(()=>{
+//     mymove(ele, 'top', 0)
+// })
+*/
+mymove(ele, 'left', 200)
+.then(()=>{
+    return mymove(ele, 'top', 200)
+})
+.then(()=>{
+    return mymove(ele, 'left', 0)
+})
+.then(()=>{
+    return mymove(ele, 'top', 0)
+})
+
+
+</script>
+</html>

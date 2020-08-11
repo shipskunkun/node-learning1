@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    function mypromise(type) {
+        return new Promise((resolve, reject)=>{
+            if(type == 1) {
+                resolve()
+                console.log('正确',type)
+            }
+            else {
+                reject()
+                console.log('错误',type)
+            }
+        })
+    }
+
+    async function myasync() {
+        await mypromise(2);
+        await mypromise(1);  //这里不会执行
+        await mypromise(1);
+    }
+    async function myasync2() {
+        try{
+            await mypromise(2);
+            await mypromise(1);
+            await mypromise(1);
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
+    myasync2();
+
+</script>
+
+</html>
