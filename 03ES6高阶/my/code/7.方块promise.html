@@ -56,6 +56,21 @@ function mymove(ele, arg, target) {
     })
 }
 
+function testAnimationFrame() {
+    let num = 0
+    function fn() {
+        console.log(num);
+        num++;
+        if(num < 20) {
+            window.requestAnimationFrame(fn);
+        }
+    }
+    fn()
+}
+
+testAnimationFrame();
+
+
 let ele = document.querySelector(".box");
 /* 错误原因，每次需要返回一个新的promise
 
