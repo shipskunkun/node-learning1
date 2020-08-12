@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+/*第一版本
+Obj[Symbol.iterator] = function() {
+    return next() {
+        if(index >= obj.length) {
+            return {
+                done: true
+            }
+        }
+        else {
+            return {
+                value: obj[index++],
+                done: false
+            }
+        }
+    }
+}
+*/
+let obj = {
+    a: 1,
+    b: 2,
+    c: 3
+};
+
+// 给这个obj 配置了迭代器，才能遍历，否则是不能遍历的
+obj[Symbol.iterator] = function() {
+    let values = Object.values(obj);
+    let index = 0;
+    return {
+        next() {
+            if(index >= values.length) {
+            return {
+                    done: true
+                }
+            }
+            else {
+                return {
+                    value: values[index++],
+                    done: false
+                }
+            }
+        }
+    }
+}
+
+for(let val of obj){
+    console.log(val);
+}
+</script>
+</html>

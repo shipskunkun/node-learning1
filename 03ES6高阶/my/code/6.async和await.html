@@ -12,37 +12,70 @@
 
 </body>
 <script>
-    function mypromise(type) {
-        return new Promise((resolve, reject)=>{
-            if(type == 1) {
-                resolve()
-                console.log('正确',type)
-            }
-            else {
-                reject()
-                console.log('错误',type)
-            }
-        })
-    }
-
-    async function myasync() {
-        await mypromise(2);
-        await mypromise(1);  //这里不会执行
-        await mypromise(1);
-    }
-    async function myasync2() {
-        try{
-            // await mypromise(2);
-            return Promise.reject(new Error("Oops!"))
-        } catch(e) {
-            console.log('错误会执行')
-            console.log(e)
+function mypromise(type) {
+    return new Promise((resolve, reject)=>{
+        if(type == 1) {
+            resolve('fetch data is me')
+            console.log('正确',type)
         }
-        await mypromise(1);
-        await mypromise(1);
-    }
+        else {
+            reject(new Error("Oops!"))
+            console.log('错误',type)
+        }
+    })
+}
 
-    myasync2();
+// 这种方法不可取， 返回的是一个promise 对象，而不是我们想要的值
+function mypromise2(type) {
+    return new Promise((resolve, reject)=>{
+        if(type == 1) {
+            resolve('fetch data is me')
+        }
+        else {
+            reject(new Error("Oops!"))
+            console.log('错误',type)
+        }
+    }).then(data=> 
+        [null, data]
+    ).catch(err=> 
+        [err, null]
+    )
+}
+
+function preAsync(p) {
+    return p.then(data=> 
+        [null, data]
+    ).catch(err=> 
+        [err, null]
+    )
+}
+
+async function myasync() {
+    await mypromise(2);
+    await mypromise(1);  //这里不会执行
+    await mypromise(1);
+}
+async function myasync2() {
+    try{
+        return Promise.reject(new Error("Oops!"));
+    } catch(e) {
+        console.log('catch', e)
+    } 
+    await mypromise(2);  //仍然会报错
+    await mypromise(1);
+}
+
+// myasync2();
+
+async function myasync3() {
+    // let [err, data] = await preAsync(mypromise(2));
+    // console.log(preAsync(mypromise2(1)))
+    let [err, data] =  await preAsync(mypromise(1));
+    console.log(err, data)
+    await preAsync(mypromise(1));
+}
+myasync3();
+
 
 </script>
 
