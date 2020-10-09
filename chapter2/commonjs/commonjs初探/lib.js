@@ -6,6 +6,10 @@ exports.tencent = function () {
     console.log('good')
 }
 
-module.exports = function () {
-    console.log('hello geekbang');
+setTimeout(function(){
+	console.log(exports)
+}, 2000)
+
+module.exports = function() {
+    console.log(123)
 }
