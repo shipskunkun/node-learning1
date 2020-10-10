@@ -1,3 +1,5 @@
+
+// 引入http 模块，可以使用 createServer 起服务
 var http = require('http');
 
 http.createServer(function (request, response) {
