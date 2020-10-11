@@ -20,6 +20,12 @@ app.get('/favicon.ico', function (request, response) {
 })
 
 // 设定 /game 路径的路由
+/*
+三个中间件的目的分别是
+1.判断是否继续玩，当连人赢三次，或者人三次出牌一样，不玩
+2.统计人联系次数，如果=3，不玩，否则继续
+3.判断输赢
+*/
 app.get('/game',
 
     function (request, response, next) {
@@ -32,9 +38,11 @@ app.get('/game',
         // 通过next执行后续中间件
         next();
 
+        console.log('next后面')
         // 当后续中间件执行完之后，会执行到这个位置
         if (response.playerWon) {
             playerWinCount++;
+            console.log('如果人赢了',playerWinCount)
         }
     },
 
@@ -74,7 +82,8 @@ app.get('/game',
         
         // 如果这里执行setTimeout，会导致前面的洋葱模型失效
         // 因为playerWon不是在中间件执行流程所属的那个事件循环里赋值的
-        // setTimeout(()=> {
+        setTimeout(()=> {
+            console.log('setTimeout')
             response.status(200);
             if (result == 0) {
                 response.send('平局')
@@ -87,7 +96,7 @@ app.get('/game',
                 response.playerWon = true;
 
             }
-        // }, 500)
+        }, 500)
     }
 )
 
