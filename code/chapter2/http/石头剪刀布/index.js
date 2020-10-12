@@ -32,7 +32,9 @@ http
         if (parsedUrl.pathname == '/game') {
             // 如果请求url是游戏请求，比如 http://localhost:3000/game?action=rock的情况
             // 就要把action解析出来，然后执行游戏逻辑
+            console.log(parsedUrl.query)
             const query = querystring.parse(parsedUrl.query);
+            console.log('query', query)
             const playerAction = query.action;
 
             // 如果统计的玩家胜利次数超过3

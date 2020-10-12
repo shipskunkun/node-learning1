@@ -18,7 +18,7 @@ module.exports = function (playerAction) {
 
     if (computerAction == playerAction) {
         return 0;
-
+        // 平局返回0，电脑赢了返回 -1， 电脑输了返回1
     } else if (
         (computerAction == 'rock' && playerAction == 'scissor') ||
         (computerAction == 'scissor' && playerAction == 'paper') ||

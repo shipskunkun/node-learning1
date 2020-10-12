@@ -3,19 +3,19 @@
  */
 const promise = new Promise((resolve, reject) => {
     setTimeout(function () {
-        resolve(3);
-        // reject(new Error(4))
+        reject(new Error(4))
     }, 500)
 })
 
 promise
-    .then(function (result) {
-        console.log(result)
+    // .then(function (result) {
+    //     console.log(result)
+    // })
+    .catch(function (err) {
+        return 1
     })
-// .catch(function (err) {
 
-// })
 
 setTimeout(() => {
-    console.log(promise)
+    console.log(promise);
 }, 800)

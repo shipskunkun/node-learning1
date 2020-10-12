@@ -14,18 +14,18 @@ async function findJob() {
         await interview(1);
         await interview(2);
         await interview(3);
-        try {
-            // 征求多个家庭成员的意见
-            await Promise.all([
-                family('father').catch(() => { /* 老爸说的话当耳边风 */ }),
-                family('mother'),
-                family('wife'),
-            ])
-        } catch (e) {
-            e.round = 'family'
-            throw e
-        }
-        console.log('smile')
+        // try {
+        //     // 征求多个家庭成员的意见
+        //     await Promise.all([
+        //         family('father').catch(() => { /* 老爸说的话当耳边风 */ }),
+        //         family('mother'),
+        //         family('wife'),
+        //     ])
+        // } catch (e) {
+        //     e.round = 'family'
+        //     throw e
+        // }
+        // console.log('smile')
 
     } catch (e) {
         console.log('cry at ' + e.round)

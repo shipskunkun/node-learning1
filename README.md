@@ -26,4 +26,9 @@ https://github.com/workingNight/learnNode
 
 ![img](https://static001.geekbang.org/resource/image/c1/a7/c1dcf0201b3b56a76a4f39464634fca7.jpg)
 
+进度：
+10.9, 1-10
+10.10,10-16 
+10.11,17-22
+10.12,
 

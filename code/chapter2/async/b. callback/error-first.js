@@ -1,9 +1,7 @@
 /**
  * try catch只能抓到一个调用堆栈内，即一个事件循环里的错误
  */
-
- /**
-try {
+// try {
     interview(function (err, res) {
         if (err) {
             console.log('cry')
@@ -12,39 +10,22 @@ try {
         console.log('smile')
     })
 
-} catch (e) {
-    console.log('cry')
-}
+// } catch (e) {
+//     console.log('cry')
+// }
+
+
 
 function interview(callback) {
-    setTimeout(() => {   
-            throw new Error('fail');
-    }, 500)
-}
-*/
+    
+    setTimeout(() => {
+        if (Math.random() > 0.2) {
+            callback(null, 'success')
 
-
-try {
-    interview(function (err, res) {
-        if (err) {
-            console.log('cry1')
-            return;
+        } else {
+            // throw new Error('fail');
+            callback(new Error('fail'))
         }
-        console.log('smile')
-    })
 
-} catch (e) {
-    console.log('cry2')
-}
-
-function interview(callback) {
-    setTimeout(() => {  
-        // callback(new Error('fail'))
-        throw new Error('fail');
     }, 500)
-}
-
-function interview2(callback) {
-    // callback(new Error('fail'))
-    throw new Error('fail');
 }
