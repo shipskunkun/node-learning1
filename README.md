@@ -30,5 +30,5 @@ https://github.com/workingNight/learnNode
 10.9, 1-10
 10.10,10-16 
 10.11,17-22
-10.12,
+10.12, 23-36
 
